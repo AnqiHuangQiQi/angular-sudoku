@@ -2,8 +2,14 @@ table {
     border-collapse: collapse;
 }
 td,tr {
-    border: 2px solid skyblue;
+    border: 3px solid skyblue;
     margin: 0;
+    width: 30px;
+    height: 30px;
+}
+
+input {
+    border: none;
     width: 30px;
     height: 30px;
 }

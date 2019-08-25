@@ -2,7 +2,10 @@
 
 <table>
   <tr *ngFor="let row of numbers">
-    <td *ngFor="let field of row">{{field}}</td>
+    <td *ngFor="let field of row">
+      <input *ngIf="field == 0"/>
+      <span *ngIf="field > 0">{{field}}</span>
+    </td>
   </tr>
 </table>
 

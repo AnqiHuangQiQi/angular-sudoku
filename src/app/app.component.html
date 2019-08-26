@@ -1,7 +1,7 @@
 <h1>Sudoku</h1>
 
 <table>
-  <tr *ngFor="let row of numbers">
+  <tr *ngFor="let row of board">
     <td *ngFor="let field of row">
       <input *ngIf="field == 0"/>
       <span *ngIf="field > 0">{{field}}</span>

@@ -8,7 +8,19 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'sudokuBoard';
 
-  numbers = this.getRandomBoard();
+  numbers = this.getRandomBoard();    //solution
+  board = this.generateBoard(this.copyArray(this.numbers)); //puzzle board
+
+  copyArray (array) {
+    let copy = new Array();
+    for (let i = 0 ; i < 9 ; i ++) {
+      copy[i] = new Array();
+      for (let j = 0 ; j < 9 ; j++) {
+        copy[i][j] = array[i][j];
+      }
+    }
+    return copy;
+  }
 
   generateRandom(head, tail) {
     let rd = Math.random();
@@ -96,7 +108,7 @@ export class AppComponent {
     }
   }
 
-    //a backtracking way to get board
+  //a backtracking way to get board
   getRandomBoard() {
     let numbers = new Array(9); 
    
@@ -104,9 +116,59 @@ export class AppComponent {
       numbers[i] = [0,0,0,0,0,0,0,0,0]; 
     }
   
-    this.backTrack(0, numbers);
-  
+    this.backTrack(0, numbers);  //this is the solution numbers
     return numbers;
   }
-  //maybe I can create a tricky way, which is faster but less randomly
+
+  //make holes from a board
+  makeHoles (board, emptyCoords) {
+    let index = this.generateRandom(0, 80);
+    let orgValue = board[Math.floor(index/9)][index%9];
+
+    let x = Math.floor(index/9);
+    let y = index%9;
+
+    board[x][y] = 0;
+    emptyCoords.push([x,y]);
+
+    if (this.isSolvable(this.copyArray(board),emptyCoords)) {
+      return board;
+    } else {
+      emptyCoords.pop();
+      board[x][y] = orgValue;
+      return board;
+    }
+  }
+
+  //check if solvable
+  isSolvable (board, emptyCoords) {
+    let noZero = true;
+
+    for (let l = 0 ; l < emptyCoords.length ; l++) {
+      let i = emptyCoords[l][0], j = emptyCoords[l][1];
+        if (board[i][j] == 0) {
+          for (let k = 1 ; k <= 9 ; k++) {
+            if (this.isValid(k, i*9+j, board)) {
+              board[i][j] = k;
+              if (this.isSolvable(this.copyArray(board), emptyCoords)) {
+                return true;
+              }
+              board[i][j] = 0;
+            }
+          }
+          return false;
+        }
+    }
+    return true;
+  }
+
+  generateBoard(board) {
+    let time = 0;
+    let emptyCoords = [];
+    while (time <= 55) {
+      board = this.makeHoles(board, emptyCoords);
+      time++;
+    }
+    return board;
+  }
 }

@@ -140,8 +140,8 @@ export class AppComponent {
   }
 
   //make holes from a board
-  makeHoles (board, emptyCoords) {
-    let index = this.generateRandom(0, 80);
+  makeHoles (board, emptyCoords, range) {
+    let index = this.generateRandom(range*9, range*9+9);
     let orgValue = board[Math.floor(index/9)][index%9];
 
     let x = Math.floor(index/9);
@@ -169,9 +169,11 @@ export class AppComponent {
           for (let k = 1 ; k <= 9 ; k++) {
             if (this.isValid(k, i*9+j, board)) {
               board[i][j] = k;
+              let currentCoords = emptyCoords.pop();
               if (this.isSolvable(this.copyArray(board), emptyCoords)) {
                 return true;
               }
+              emptyCoords.push(currentCoords);
               board[i][j] = 0;
             }
           }
@@ -184,8 +186,8 @@ export class AppComponent {
   generateBoard(board) {
     let time = 0;
     let emptyCoords = [];
-    while (time <= 55) {
-      board = this.makeHoles(board, emptyCoords);
+    while (time <= 63) {
+      board = this.makeHoles(board, emptyCoords, time%9);
       time++;
     }
     return board;

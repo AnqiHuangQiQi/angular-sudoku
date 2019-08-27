@@ -1,12 +1,12 @@
 <h1>Sudoku</h1>
 
 <table>
-  <tr *ngFor="let row of board">
-    <td *ngFor="let field of row">
-      <input *ngIf="field == 0"/>
-      <span *ngIf="field > 0">{{field}}</span>
+  <tr *ngFor="let row of board; let i = index">
+    <td *ngFor="let field of row; let j = index">
+      <input #cell *ngIf="field == 0" (change)="updateBoard(i, j, cell.value)"/>
+      <div *ngIf="field > 0" class="prefilled">{{field}}</div>
     </td>
   </tr>
 </table>
-
-<button>Verify</button>
+<button (click)="submitGame()">Verify</button>
+<div *ngIf="message" class="message">{{ message }}</div>

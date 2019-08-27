@@ -1,15 +1,44 @@
+h1 {
+    text-align: center;
+}
 table {
     border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.prefilled {
+    background-color: aqua;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+.message {
+    text-align: center;
+}
+
 td,tr {
     border: 3px solid skyblue;
     margin: 0;
     width: 30px;
     height: 30px;
+    text-align: center;
 }
 
 input {
     border: none;
     width: 30px;
     height: 30px;
+    text-align: center;
+}
+
+button {
+    background-color: aqua;
+    border-radius: 5px;
+    font-size: 20px;
+    margin:10px auto;
+    display:block;
+    width: 100px;
+    height: 50px;
 }

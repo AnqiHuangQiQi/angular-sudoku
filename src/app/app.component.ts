@@ -10,6 +10,24 @@ export class AppComponent {
 
   numbers = this.getRandomBoard();    //solution
   board = this.generateBoard(this.copyArray(this.numbers)); //puzzle board
+  userBoard = this.copyArray(this.board);
+  message = "";
+
+  updateBoard(i, j, val) {
+    this.userBoard[i][j] = val;
+  }
+
+  submitGame() {
+    for (let i = 0 ; i < 9 ; i++) {
+      for (let j = 0 ; j < 9 ; j++) {
+        if (this.userBoard[i][j] != this.numbers[i][j]) {
+          this.message = "Hmmm... Please Try again.";
+          return;
+        }
+      }
+    }
+    this.message = "Congrats! You win.";
+  }
 
   copyArray (array) {
     let copy = new Array();
@@ -117,6 +135,7 @@ export class AppComponent {
     }
   
     this.backTrack(0, numbers);  //this is the solution numbers
+    console.log("Solution Board (for your convenience):", numbers);
     return numbers;
   }
 

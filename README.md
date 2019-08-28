@@ -16,6 +16,16 @@ Secondly, I dig holes from the solution board. Every time a hole is made, I chec
 
 I used the `console.log()` to post the solution board. For your convenience, you can check your browser console for solution.
 
+Beginning
+![alt text](https://github.com/AnqiHuangQiQi/angular-sudoku/blob/master/empty_board.png)
+
+Wrong Answer
+![alt text](https://github.com/AnqiHuangQiQi/angular-sudoku/blob/master/wrong_solution.png)
+
+Correct Answer
+![alt text](https://github.com/AnqiHuangQiQi/angular-sudoku/blob/master/correct_solution.png)
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

@@ -20,10 +20,13 @@ export class AppComponent {
   submitGame() {
     for (let i = 0 ; i < 9 ; i++) {
       for (let j = 0 ; j < 9 ; j++) {
-        if (this.userBoard[i][j] != this.numbers[i][j]) {
+        let val = this.userBoard[i][j];
+        this.userBoard[i][j] = 0;
+        if (!this.isValid(val, i*9+j, this.userBoard)) {
           this.message = "Hmmm... Please Try again.";
           return;
         }
+        this.userBoard[i][j] = val;
       }
     }
     this.message = "Congrats! You win.";
@@ -161,8 +164,6 @@ export class AppComponent {
 
   //check if solvable
   isSolvable (board, emptyCoords) {
-    let noZero = true;
-
     for (let l = 0 ; l < emptyCoords.length ; l++) {
       let i = emptyCoords[l][0], j = emptyCoords[l][1];
         if (board[i][j] == 0) {
@@ -180,6 +181,27 @@ export class AppComponent {
           return false;
         }
     }
+    return true;
+  }
+
+  //for testing
+  solveBoard (board, emptyCoords) {
+    for (let l = 0 ; l < emptyCoords.length ; l++) {
+      let i = emptyCoords[l][0], j = emptyCoords[l][1];
+        if (board[i][j] == 0) {
+          for (let k = 1 ; k <= 9 ; k++) {
+            if (this.isValid(k, i*9+j, board)) {
+              board[i][j] = k;
+              if (this.solveBoard(board, emptyCoords)) {
+                return true;
+              }
+              board[i][j] = 0;
+            }
+          }
+          return false;
+        }
+    }
+
     return true;
   }
 
